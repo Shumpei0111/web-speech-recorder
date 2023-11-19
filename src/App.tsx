@@ -1,7 +1,7 @@
 import useRecorder from "./hooks/useRecorder";
 
 function App() {
-  const { audioURL, startRecording, stopRecording, isRecording } =
+  const { audioURL, startRecording, stopRecording, isRecording, errorText } =
     useRecorder();
 
   return (
@@ -14,6 +14,7 @@ function App() {
           Stop Recording
         </button>
         {audioURL && <audio src={audioURL} controls />}
+        {errorText && <p>{errorText}</p>}
       </div>
     </main>
   );

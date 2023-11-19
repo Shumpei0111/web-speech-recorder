@@ -6,27 +6,36 @@ const useRecorder = () => {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
   );
+  const [errorText, setErrorText] = useState<string | null>(null);
 
   useEffect(() => {
     // マイクへのアクセスを取得する
     if (isRecording) {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-        const recorder = new MediaRecorder(stream);
-        setMediaRecorder(recorder);
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          const recorder = new MediaRecorder(stream);
+          setMediaRecorder(recorder);
 
-        const audioChunks: BlobPart[] = [];
-        recorder.ondataavailable = (event: BlobEvent) => {
-          audioChunks.push(event.data);
-        };
+          const audioChunks: BlobPart[] = [];
+          recorder.ondataavailable = (event: BlobEvent) => {
+            audioChunks.push(event.data);
+          };
 
-        recorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks);
-          const audioUrl = URL.createObjectURL(audioBlob);
-          setAudioURL(audioUrl);
-        };
+          recorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            setAudioURL(audioUrl);
 
-        recorder.start();
-      });
+            stream.getTracks().forEach((track) => track.stop());
+          };
+
+          recorder.start();
+        })
+        .catch((err) => {
+          console.log("録音中にエラーが発生しました", err);
+          setErrorText(JSON.stringify(err));
+        });
     }
 
     // 録音を停止する
@@ -48,7 +57,7 @@ const useRecorder = () => {
     mediaRecorder?.stop();
   };
 
-  return { audioURL, isRecording, startRecording, stopRecording };
+  return { audioURL, isRecording, startRecording, stopRecording, errorText };
 };
 
 export default useRecorder;
