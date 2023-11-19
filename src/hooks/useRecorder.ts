@@ -1,78 +1,5 @@
 import { useState, useEffect } from "react";
 
-// const useRecorder = () => {
-//   const [audioURL, setAudioURL] = useState<string | null>(null);
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
-//     null
-//   );
-//   const [errorText, setErrorText] = useState<string | null>(null);
-//   const [num, setNum] = useState(0);
-
-// useEffect(() => {
-//   // マイクへのアクセスを取得する
-//   if (isRecording) {
-//     setNum((p) => p + 1);
-//     navigator.mediaDevices
-//       .getUserMedia({ audio: true })
-//       .then((stream) => {
-//         setNum((p) => p + 1);
-//         const recorder = new MediaRecorder(stream);
-//         setMediaRecorder(recorder);
-
-//         const audioChunks: BlobPart[] = [];
-//         recorder.ondataavailable = (event: BlobEvent) => {
-//           setNum((p) => p + 1);
-//           audioChunks.push(event.data);
-//         };
-
-//         recorder.onstop = () => {
-//           setNum((p) => p + 1);
-//           const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-//           const audioUrl = URL.createObjectURL(audioBlob);
-//           setAudioURL(audioUrl);
-
-//           stream.getTracks().forEach((track) => track.stop());
-//         };
-
-//         recorder.start();
-//       })
-//       .catch((err) => {
-//         setNum(-9999999);
-//         console.log("録音中にエラーが発生しました", err);
-//         setErrorText(JSON.stringify(err));
-//       });
-//   }
-
-//   // 録音を停止する
-//   return () => {
-//     if (mediaRecorder && mediaRecorder.state === "recording") {
-//       mediaRecorder.stop();
-//     }
-//   };
-// }, [isRecording, mediaRecorder]);
-
-// 録音の開始
-//   const startRecording = () => {
-//     setIsRecording(true);
-//   };
-
-//   // 録音の停止
-//   const stopRecording = () => {
-//     setIsRecording(false);
-//     mediaRecorder?.stop();
-//   };
-
-//   return {
-//     audioURL,
-//     isRecording,
-//     startRecording,
-//     stopRecording,
-//     errorText,
-//     num,
-//   };
-// };
-
 const useRecorder = () => {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
@@ -87,11 +14,11 @@ const useRecorder = () => {
           audio: true,
         });
 
-        if (!MediaRecorder.isTypeSupported("audio/webm;")) {
+        if (!MediaRecorder.isTypeSupported("audio/webm")) {
           console.log("not supported");
         }
 
-        const recorder = new MediaRecorder(stream, { mimeType: "audio/webm;" });
+        const recorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
         setMediaRecorder(recorder);
       } catch (error) {
         alert(error);
