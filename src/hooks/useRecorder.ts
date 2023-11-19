@@ -20,7 +20,7 @@ const useRecorder = () => {
         };
 
         recorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks);
+          const audioBlob = new Blob(audioChunks, { type: "audio/mpeg-3" });
           const audioUrl = URL.createObjectURL(audioBlob);
           setAudioURL(audioUrl);
         };
