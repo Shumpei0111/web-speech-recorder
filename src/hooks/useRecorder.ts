@@ -31,9 +31,11 @@ const useRecorder = () => {
 
     // 録音を停止する
     return () => {
-      mediaRecorder?.stop();
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+      }
     };
-  }, [isRecording]);
+  }, [isRecording, mediaRecorder]);
 
   // 録音の開始
   const startRecording = () => {
