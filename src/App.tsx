@@ -6,6 +6,7 @@ function App() {
 
   return (
     <main>
+      1
       <div>
         <button onClick={startRecording} disabled={isRecording}>
           Start Recording
