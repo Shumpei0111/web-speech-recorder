@@ -1,12 +1,18 @@
 import useRecorder from "./hooks/useRecorder";
 
 function App() {
-  const { audioURL, startRecording, stopRecording, isRecording, errorText } =
-    useRecorder();
+  const {
+    audioURL,
+    startRecording,
+    stopRecording,
+    isRecording,
+    errorText,
+    num,
+  } = useRecorder();
 
   return (
     <main>
-      1
+      {num}
       <div>
         <button onClick={startRecording} disabled={isRecording}>
           Start Recording
