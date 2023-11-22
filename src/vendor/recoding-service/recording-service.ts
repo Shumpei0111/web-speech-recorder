@@ -219,7 +219,7 @@ export class RecorderService implements IRecordingService {
         this.encoderMimeType = "audio/ogg";
       } else {
         this.encoderWorker = this.createWorker(EncoderWav);
-        this.encoderMimeType = "audio/wav";
+        // this.encoderMimeType = "audio/wav";
       }
       this.encoderWorker.addEventListener("message", (e) => {
         // let event = new Event("dataavailable");
