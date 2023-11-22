@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import RecorderService from "./vendor/recoding-service/recording-service.js";
+import { RecorderService } from "./vendor/recoding-service/recording-service";
 
 type Recording = {
   ts: number;
@@ -8,9 +8,12 @@ type Recording = {
   size: number;
 };
 
+const BASE_URL = "./vendor/recoding-service/";
+
 function App() {
-  const [recorderService, setRecorderService] =
-    useState<typeof RecorderService>();
+  const [recorderService, setRecorderService] = useState(
+    new RecorderService(BASE_URL)
+  );
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [recordingInProgress, setRecordingInProgress] = useState<boolean>();
 
@@ -79,7 +82,7 @@ function App() {
         window.removeEventListener("keypress", handleKeyPress);
       };
     }
-    setRecorderService(new RecorderService());
+    setRecorderService(new RecorderService(BASE_URL));
   }, [recorderService, handleKeyPress]);
 
   useEffect(() => {
