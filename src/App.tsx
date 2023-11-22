@@ -22,13 +22,10 @@ function App() {
     setRecordings([...recordings, evt.detail.recording]);
   };
 
-  const handleRecording = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (evt: any) => onNewRecording(evt),
-    [onNewRecording]
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleRecording = (evt: any) => onNewRecording(evt);
 
-  const startRecording = useCallback(async () => {
+  const startRecording = async () => {
     if (!recorderService) {
       console.error("Recorder service is not initialized");
       return;
@@ -44,14 +41,14 @@ function App() {
     } catch (error) {
       console.error(error);
     }
-  }, [recorderService, setRecordingInProgress]);
+  };
 
-  const stopRecording = useCallback(() => {
+  const stopRecording = () => {
     recorderService?.stopRecording();
     setRecordingInProgress(false);
-  }, [recorderService, setRecordingInProgress]);
+  };
 
-  const handleClickRecording = useCallback(() => {
+  const handleClickRecording = () => {
     if (recordingInProgress) {
       stopRecording();
       recorderService?.em.removeEventListener("recording", handleRecording);
@@ -59,18 +56,12 @@ function App() {
       recorderService?.em.addEventListener("recording", handleRecording);
       startRecording();
     }
-  }, [
-    recorderService,
-    recordingInProgress,
-    handleRecording,
-    stopRecording,
-    startRecording,
-  ]);
+  };
 
-  const handleKeyPress = useCallback(() => {
+  const handleKeyPress = () => {
     window.removeEventListener("keypress", handleKeyPress);
     handleClickRecording();
-  }, [handleClickRecording]);
+  };
 
   useEffect(() => {
     if (recorderService) {
