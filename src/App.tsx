@@ -97,6 +97,8 @@ function App() {
 
   return (
     <main>
+      {recordingInProgress && <p>recordingInProgress</p>}
+      {recordings.length > 0 && <p>recordings</p>}
       <ol>
         {recordings.map((recording) => (
           <li key={recording.ts}>
