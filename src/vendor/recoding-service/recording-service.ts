@@ -191,9 +191,16 @@ export class RecorderService implements IRecordingService {
       this.destinationNode = this.audioCtx.destination;
     }
 
+    console.log(
+      "this.config.usingMediaRecorder: ",
+      this.config.usingMediaRecorder
+    );
+
     // Create web worker for doing the encoding
     if (!this.config.usingMediaRecorder) {
       const BASE_URL = "";
+      console.log("this.config.manualEncoderId: ", this.config.manualEncoderId);
+
       if (this.config.manualEncoderId === "mp3") {
         // This also works and avoids weirdness imports with workers
         // this.encoderWorker = new Worker(BASE_URL + '/workers/encoder-ogg-worker.js')
