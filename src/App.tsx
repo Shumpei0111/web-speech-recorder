@@ -17,14 +17,10 @@ function App() {
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [recordingInProgress, setRecordingInProgress] = useState<boolean>();
 
-  const onNewRecording = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (evt: any) => {
-      console.log(evt);
-      setRecordings([...recordings, evt.detail.recording]);
-    },
-    [recordings]
-  );
+  const onNewRecording = (evt: any) => {
+    console.log("evt: ", evt);
+    setRecordings([...recordings, evt.detail.recording]);
+  };
 
   const handleRecording = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
