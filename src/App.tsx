@@ -20,6 +20,7 @@ function App() {
   const onNewRecording = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (evt: any) => {
+      console.log(evt);
       setRecordings([...recordings, evt.detail.recording]);
     },
     [recordings]
@@ -101,7 +102,8 @@ function App() {
   return (
     <main>
       {recordingInProgress && <p>recordingInProgress</p>}
-      {recordings.length > 0 && <p>recordings</p>}
+      {recordings.length === 0 && <p>no recordings</p>}
+      {recordings.length > 0 && <p>{recordings.length} recordings</p>}
       <ol>
         {recordings.map((recording) => (
           <li key={recording.ts}>
