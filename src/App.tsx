@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RecorderService } from "./vendor/recoding-service/recording-service";
 
 type Recording = {
@@ -17,6 +17,7 @@ function App() {
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [recordingInProgress, setRecordingInProgress] = useState<boolean>();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onNewRecording = (evt: any) => {
     console.log("evt: ", evt);
     setRecordings([...recordings, evt.detail.recording]);
