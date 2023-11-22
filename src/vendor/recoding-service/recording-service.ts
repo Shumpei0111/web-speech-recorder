@@ -116,7 +116,7 @@ export class RecorderService implements IRecordingService {
     this.chunks = [];
     this.chunkType = "";
 
-    this.encoderMimeType = "audio/wav";
+    this.encoderMimeType = "audio/webm;codecs=opus";
 
     this.config = {
       broadcastAudioProcessEvents: false,
