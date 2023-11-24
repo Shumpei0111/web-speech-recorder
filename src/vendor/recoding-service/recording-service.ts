@@ -116,7 +116,7 @@ export class RecorderService implements IRecordingService {
     this.chunks = [];
     this.chunkType = "";
 
-    this.encoderMimeType = "audio/webm;codecs=opus";
+    this.encoderMimeType = "audio/wav";
 
     this.config = {
       broadcastAudioProcessEvents: false,
@@ -219,7 +219,7 @@ export class RecorderService implements IRecordingService {
         this.encoderMimeType = "audio/ogg";
       } else {
         this.encoderWorker = this.createWorker(EncoderWav);
-        // this.encoderMimeType = "audio/wav";
+        this.encoderMimeType = "audio/wav";
       }
       this.encoderWorker.addEventListener("message", (e) => {
         // let event = new Event("dataavailable");
